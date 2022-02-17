@@ -16,6 +16,26 @@ namespace TestProject1
         internal static Stack<int> GetNextGreaterValue(Stack<int> sourceStack)
         {
             Stack<int> result = null;
+            int[] preResultList = sourceStack.ToArray();
+            int max = 0;
+
+            for (int i = 0; i < sourceStack.Count; i++)
+            {
+                if (preResultList[i] >= max)
+                {
+                    preResultList[i] = -1;
+                    max = preResultList[i];
+                }
+                else
+                {
+                    preResultList[i] = max;
+                }
+            }
+
+            for (int i = preResultList.Length; i == 0; i--) 
+            {
+                result.Push(preResultList[i]);
+            }
 
             return result;
         }
