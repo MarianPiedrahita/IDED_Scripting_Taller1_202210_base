@@ -8,17 +8,29 @@ namespace TestProject1
 
         public static void Main(string[] args)
         {
+            
             Stack<int> result = null;
             Console.WriteLine("Hello world");
             Console.WriteLine("Here you can write console prints to test your implementation outside the testing environment");
 
-            
+            Stack<int> numbers = new Stack<int>();
+            numbers.Push(13);
+            numbers.Push(14);
+            numbers.Push(6);
+            numbers.Push(19);
+            numbers.Push(18);
 
-            result.Push(5);
-            result.Push(6);
-            result.Push(3);
-            result.Push(26);
-            TestMethods.GetNextGreaterValue(result);
+
+            Stack<int>resulta = TestMethods.GetNextGreaterValue(numbers);
+
+            int[] lita =resulta.ToArray();
+
+            for (int i = 0; i < resulta.Count; i++) 
+            {
+                Console.WriteLine(lita[i]);
+            }
+               
+
         }  
     }
 }
