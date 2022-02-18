@@ -15,10 +15,10 @@ namespace TestProject1
 
             Stack<int> numbers = new Stack<int>();
             numbers.Push(13);
-            numbers.Push(14);
-            numbers.Push(6);
-            numbers.Push(19);
             numbers.Push(18);
+            numbers.Push(6);
+            numbers.Push(17);
+            numbers.Push(15);
 
 
             Stack<int>resulta = TestMethods.GetNextGreaterValue(numbers);

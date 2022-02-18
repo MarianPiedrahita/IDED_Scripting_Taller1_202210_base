@@ -24,23 +24,34 @@ namespace TestProject1
             {
                 if (preResultList[i] >= max)
                 {
-                    // preResultList[i] = -1;
-                    result.Push(-1);
                     max = preResultList[i];
+                    preResultList[i] = -1;
+                    //result.Push(-1);
                 }
                 else
                 {
-                    // preResultList[i] = max;
-                    result.Push(max);
+                    preResultList[i] = max;
+                    //result.Push(max);
                 }
             }
 
-            for (int i = preResultList.Length; i == 0; i--) 
+            int k = 0;
+            int j = preResultList.Length - 1;
+            while (k < j)
+            {
+                var temp = preResultList[k];
+                preResultList[k] = preResultList[j];
+                preResultList[j] = temp;
+                k++;
+                j--;
+            }
+
+            for (int i = 0; i < sourceStack.Count; i++) 
             {
                 result.Push(preResultList[i]);
             }
 
-
+            
             return result;
         }
 
