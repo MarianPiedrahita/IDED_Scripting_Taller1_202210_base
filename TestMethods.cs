@@ -187,6 +187,10 @@ namespace TestProject1
         {
             Queue<Ticket>[] result = null;
 
+            result = new Queue<Ticket>[3];
+
+
+
             Queue<Ticket> payments = new Queue<Ticket>();
             Queue<Ticket> subscriptions = new Queue<Ticket>();
             Queue<Ticket> cancelations = new Queue<Ticket>();
