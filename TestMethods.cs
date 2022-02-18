@@ -58,6 +58,7 @@ namespace TestProject1
         internal static Dictionary<int, EValueType> FillDictionaryFromSource(int[] sourceArr)
         {
             Dictionary<int, EValueType> result = null;
+            result = new Dictionary<int, EValueType>();
 
             for (int i = 0; i < sourceArr.Length; i++)
             {
