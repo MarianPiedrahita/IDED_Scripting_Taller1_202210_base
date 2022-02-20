@@ -39,7 +39,7 @@ namespace TestProject1
             int j = preResultList.Length - 1;
             while (k < j)
             {
-                var temp = preResultList[k];
+                int temp = preResultList[k];
                 preResultList[k] = preResultList[j];
                 preResultList[j] = temp;
                 k++;
@@ -168,17 +168,39 @@ namespace TestProject1
         internal static Dictionary<int, EValueType> SortDictionaryRegistries(Dictionary<int, EValueType> sourceDict)
         {
             Dictionary<int, EValueType> result = null;
-            /*
-            int[] organizar;
-
-            for (int i = 0; i < sourceDict.Count; i++)
+            result = new Dictionary<int, EValueType>();
+            List<int> LLaves = new List<int>();
+            List<EValueType> Valores = new List<EValueType>();
+            
+            foreach(KeyValuePair<int, EValueType> pair in sourceDict)
             {
-                for (int j = 0; j < sourceDict.Count - 1; j++)
-                {
+                LLaves.Add(pair.Key);
+                Valores.Add(pair.Value);
+            }
 
+
+            for (int j = 0; j <= LLaves.Count - 2; j++)
+            {
+                for (int i = 0; i <= LLaves.Count - 2; i++)
+                {
+                    if (LLaves[i] > LLaves[i + 1])
+                    {
+                        int temp1 = LLaves[i + 1];
+                        EValueType temp2 = Valores[i + 1];
+
+                        LLaves[i + 1] = LLaves[i];
+                        LLaves[i] = temp1;
+
+                        Valores[i + 1] = Valores[i];
+                        Valores[i] = temp2;
+                    }
                 }
             }
-            */
+
+            for (int i = 0; i < LLaves.Count; i++)
+            {
+                result.Add(LLaves[i], Valores[i]);
+            }
 
             return result;
         }
@@ -234,6 +256,7 @@ namespace TestProject1
             }
             else
             {
+                targetQueue.Enqueue(ticket);
                 result = true;
             }
 
