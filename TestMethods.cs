@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace TestProject1
 {
@@ -64,36 +66,40 @@ namespace TestProject1
             {
                 if (sourceArr[i] % 2 == 0)
                 {
-                    result[sourceArr[i]] = EValueType.Two;
+                    result.Add((int)sourceArr[i], EValueType.Two);
                 }
                 else if (sourceArr[i] % 3 == 0)
                 {
-                    result[sourceArr[i]] = EValueType.Three;
+                    result.Add((int)sourceArr[i], EValueType.Three);
                 }
                 else if (sourceArr[i] % 5 == 0)
                 {
-                    result[sourceArr[i]] = EValueType.Five;
+                    result.Add((int)sourceArr[i], EValueType.Five);
                 }
                 else if (sourceArr[i] % 7 == 0)
                 {
-                    result[sourceArr[i]] = EValueType.Seven;
+                    result.Add((int)sourceArr[i], EValueType.Seven);
                 }
                 else
                 {
-                    for (int j = 2; j < sourceArr[i]; j++)
+                    bool resultado = false;
+                    int multiplos = 0;
+
+                    for (int k = 1; k <= sourceArr[i]; k++)
                     {
-                        if ((sourceArr[i] % i) == 0)
-                        {
-                          
-                        }
-                        else
-                        {
-                            result[sourceArr[i]] = EValueType.Prime;
-                        }
+                        if (sourceArr[i] % k == 0)
+                            multiplos++;
                     }
+
+                    if (multiplos == 2)
+                     resultado = true;
+                     result.Add((int)sourceArr[i], EValueType.Prime);
+                        
+                            
+                    
+                    
                 }
             }
-
 
             return result;
         }
@@ -101,146 +107,119 @@ namespace TestProject1
         internal static int CountDictionaryRegistriesWithValueType(Dictionary<int, EValueType> sourceDict, EValueType type)
         {
 
-            int contador = 0;
+            int Contador = 0;
+            EValueType Value;
 
-            if (type == EValueType.Two)
+
+            for (int i = 0; i < sourceDict.Count; i++)
             {
-                
-                for (int i = 0; i < sourceDict.Count; i++)
+
+                Value = sourceDict.ElementAt(i).Value;
+
+
+                if (Value == type)
                 {
-                    if (sourceDict[i] == EValueType.Two)
-                    {
-                        contador++;
-                    }
+
+                    Contador++;
+
                 }
-            }
-            else if (type == EValueType.Three)
-            {
-                
-                for (int i = 0; i < sourceDict.Count; i++)
-                {
-                    if (sourceDict[i] == EValueType.Three)
-                    {
-                        contador++;
-                    }
-                }
-            }
-            else if (type == EValueType.Five)
-            {
-                
-                for (int i = 0; i < sourceDict.Count; i++)
-                {
-                    if (sourceDict[i] == EValueType.Five)
-                    {
-                        contador++;
-                    }
-                }
-            }
-            else if (type == EValueType.Seven)
-            {
-                
-                for (int i = 0; i < sourceDict.Count; i++)
-                {
-                    if (sourceDict[i] == EValueType.Seven)
-                    {
-                        contador++;
-                    }
-                }
-            }
-            else if (type == EValueType.Prime)
-            {
-                
-                for (int i = 0; i < sourceDict.Count; i++)
-                {
-                    if (sourceDict[i] == EValueType.Prime)
-                    {
-                        contador++;
-                    }
-                }
+
             }
 
 
 
-
-            return contador;
+            return Contador;
         }
 
         internal static Dictionary<int, EValueType> SortDictionaryRegistries(Dictionary<int, EValueType> sourceDict)
         {
             Dictionary<int, EValueType> result = null;
             result = new Dictionary<int, EValueType>();
-            List<int> LLaves = new List<int>();
-            List<EValueType> Valores = new List<EValueType>();
+
+
+            List<int> keys = new List<int>();
             
-            foreach(KeyValuePair<int, EValueType> pair in sourceDict)
+
+
+            foreach (var key in sourceDict.Keys) 
             {
-                LLaves.Add(pair.Key);
-                Valores.Add(pair.Value);
+
+                keys.Add(key);
+
             }
+            int[] keyArray = keys.ToArray();
+            
+            Array.Sort(keyArray);
+            Array.Reverse(keyArray);
 
 
-            for (int j = 0; j <= LLaves.Count - 2; j++)
+            for (int i = 0; i < keyArray.Length; i++)
             {
-                for (int i = 0; i <= LLaves.Count - 2; i++)
+                if (keyArray[i] % 2 == 0)
                 {
-                    if (LLaves[i] > LLaves[i + 1])
+                    result.Add((int)keyArray[i], EValueType.Two);
+                }
+                else if (keyArray[i] % 3 == 0)
+                {
+                    result.Add((int)keyArray[i], EValueType.Three);
+                }
+                else if (keyArray[i] % 5 == 0)
+                {
+                    result.Add((int)keyArray[i], EValueType.Five);
+                }
+                else if (keyArray[i] % 7 == 0)
+                {
+                    result.Add((int)keyArray[i], EValueType.Seven);
+                }
+                else
+                {
+                    bool resultado = false;
+                    int multiplos = 0;
+
+                    for (int k = 1; k <= keyArray[i]; k++)
                     {
-                        int temp1 = LLaves[i + 1];
-                        EValueType temp2 = Valores[i + 1];
-
-                        LLaves[i + 1] = LLaves[i];
-                        LLaves[i] = temp1;
-
-                        Valores[i + 1] = Valores[i];
-                        Valores[i] = temp2;
+                        if (keyArray[i] % k == 0)
+                            multiplos++;
                     }
+
+                    if (multiplos == 2)
+                        resultado = true;
+                    result.Add((int)keyArray[i], EValueType.Prime);
+
+
+
+
                 }
             }
 
-            for (int i = 0; i < LLaves.Count; i++)
-            {
-                result.Add(LLaves[i], Valores[i]);
-            }
 
-            return result;
+
+            return result;             
         }
 
         internal static Queue<Ticket>[] ClassifyTickets(List<Ticket> sourceList)
         {
-            Queue<Ticket>[] result = null;
+            Queue<Ticket>[] result = new Queue<Ticket>[3] { new Queue<Ticket>(), new Queue<Ticket>(), new Queue<Ticket>() };
+            sourceList.Sort((a, b) => a.Turn - b.Turn);
 
-            result = new Queue<Ticket>[3];
-
-
-
-            Queue<Ticket> payments = new Queue<Ticket>();
-            Queue<Ticket> subscriptions = new Queue<Ticket>();
-            Queue<Ticket> cancelations = new Queue<Ticket>();
-
-
-           
-
-            for (int i = 0; i < sourceList.Count; i++)
+            foreach (Ticket ticket in sourceList)
             {
-                Ticket ticket = sourceList[i];
-                if (ticket.RequestType == Ticket.ERequestType.Payment)
+
+                switch (ticket.RequestType)
                 {
-                    payments.Enqueue(ticket);
-                }
-                else if (ticket.RequestType == Ticket.ERequestType.Subscription)
-                {
-                    subscriptions.Enqueue(ticket);
-                }
-                else if (ticket.RequestType == Ticket.ERequestType.Cancellation)
-                {
-                    cancelations.Enqueue(ticket);
+                    case Ticket.ERequestType.Payment:
+                        result[0].Enqueue(ticket);
+                        break;
+                    case Ticket.ERequestType.Subscription:
+                        result[1].Enqueue(ticket);
+                        break;
+                    case Ticket.ERequestType.Cancellation:
+                        result[2].Enqueue(ticket);
+                        break;
+                    default:
+                        return null;
                 }
             }
-
-            result[0] = payments;
-            result[1] = subscriptions;
-            result[2] = cancelations;
-
 
 
             return result;
@@ -248,26 +227,17 @@ namespace TestProject1
 
         internal static bool AddNewTicket(Queue<Ticket> targetQueue, Ticket ticket)
         {
-            bool result = false;
+            if (ticket.Turn > 99) return false;
 
-            if (ticket.RequestType != Ticket.ERequestType.Payment || ticket.RequestType != Ticket.ERequestType.Subscription || ticket.RequestType != Ticket.ERequestType.Cancellation)
-            {
-                result = false;
-            }
-            else
+            Ticket currTicket = targetQueue.Peek();
+
+            if (currTicket.RequestType == ticket.RequestType)
             {
                 targetQueue.Enqueue(ticket);
-                result = true;
+                return true;
             }
 
-            
-            
-            
-            
-
-
-
-            return result;
+            return false;
         }        
     }
 }
